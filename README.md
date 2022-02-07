@@ -61,6 +61,49 @@ Once you have a complete database, do the following:
 
 8. In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
 
+CODE
+
+CREATE TABLE titles(
+title_id VARCHAR NOT NULL PRIMARY KEY,
+title VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE employees(
+emp_no VARCHAR NOT NULL PRIMARY KEY,
+emp_title_id VARCHAR (100) NOT NULL,
+birth_date DATE NOT NULL,
+first_name VARCHAR NOT NULL,
+last_name VARCHAR NOT NULL,
+sex CHAR NOT NULL,
+hire_date DATE NOT NULL,
+FOREIGN KEY (emp_title_id) REFERENCES titles (title_id)
+);
+
+CREATE TABLE departments(
+dept_no VARCHAR NOT NULL PRIMARY KEY,
+dept_name VARCHAR (100) NOT NULL
+);
+
+CREATE TABLE salaries(
+emp_no VARCHAR NOT NULL,
+salary INT NOT NULL,
+FOREIGN KEY (emp_no) REFERENCES Employees (emp_no)
+);
+
+CREATE TABLE dept_Manager(
+dept_no VARCHAR NOT NULL,
+emp_no VARCHAR NOT NULL,
+FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
+FOREIGN KEY (dept_no) REFERENCES departments (dept_no)
+);
+
+CREATE TABLE dept_emp(
+emp_no VARCHAR NOT NULL,
+dept_no VARCHAR NOT NULL,
+FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
+FOREIGN KEY (dept_no) REFERENCES departments (dept_no)
+);
+
 ## Bonus (Optional)
 
 As you examine the data, you are overcome with a creeping suspicion that the dataset is fake. You surmise that your boss handed you spurious data in order to test the data engineering skills of a new employee. To confirm your hunch, you decide to take the following steps to generate a visualisation of the data, with which you will confront your boss:
